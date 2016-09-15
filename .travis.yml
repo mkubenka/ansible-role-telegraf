@@ -9,6 +9,7 @@ install:
 
 env:
   matrix:
+    - INSTANCE=default-centos-6
     - INSTANCE=default-centos-7
 
 before_script:
