@@ -38,9 +38,9 @@
 - name: copy additional inputs configuration
   template:
     src=telegraf.d/extra_input.conf.j2
-    dest=/etc/telegraf/telegraf.d/{{ item.plugin }}.conf
+    dest=/etc/telegraf/telegraf.d/{{ item.key }}.conf
     backup=yes
-  with_items: "{{ telegraf_inputs_extra }}"
+  with_dict: "{{ telegraf_inputs_extra }}"
   notify: validate and restart telegraf
 
 - name: start and enable the telegraf

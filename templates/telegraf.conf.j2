@@ -73,8 +73,8 @@
 ###############################################################################
 
 {% if telegraf_outputs is defined and telegraf_outputs is iterable %}
-{% for item in telegraf_outputs %}
-[[outputs.{{ item.plugin }}]]
+{% for key, item in telegraf_outputs.iteritems() %}
+[[outputs.{{ key }}]]
 {% for items in item.config %}
   {{ items }}
 {% endfor %}
@@ -87,8 +87,8 @@
 ###############################################################################
 
 {% if telegraf_inputs_default is defined and telegraf_inputs_default is iterable %}
-{% for item in telegraf_inputs_default %}
-[[inputs.{{ item.plugin }}]]
+{% for key, item in telegraf_inputs_default.iteritems() %}
+[[inputs.{{ key }}]]
 {% if item.config is defined and item.config is iterable %}
 {% for items in item.config %}
   {{ items }}

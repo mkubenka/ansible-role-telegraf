@@ -1,30 +1,30 @@
-[[inputs.{{ item.plugin }}]]
-{% if item.config is defined and item.config is iterable %}
-{% for items in item.config %}
+[[inputs.{{ item.key }}]]
+{% if item.value.config is defined and item.value.config is iterable %}
+{% for items in item.value.config %}
   {{ items }}
 {% endfor %}
 {% endif %}
-{% if item.tagpass is defined and item.tagpass is iterable %}
-[{{ item.plugin }}.tagpass]
-{% for items in item.tagpass %}
+{% if item.value.tagpass is defined and item.value.tagpass is iterable %}
+[{{ item.key }}.tagpass]
+{% for items in item.value.tagpass %}
     {{ items }}
 {% endfor %}
 {% endif %}
-{% if item.tagdrop is defined and item.tagdrop is iterable %}
-[{{ item.plugin }}.tagdrop]
-{% for items in item.tagdrop %}
+{% if item.value.tagdrop is defined and item.value.tagdrop is iterable %}
+[{{ item.key }}.tagdrop]
+{% for items in item.value.tagdrop %}
     {{ items }}
 {% endfor %}
 {% endif %}
-{% if item.fieldpass is defined and item.fieldpass is iterable %}
-[{{ item.plugin }}.fieldpass]
-{% for items in item.fieldpass %}
+{% if item.value.fieldpass is defined and item.value.fieldpass is iterable %}
+[{{ item.key }}.fieldpass]
+{% for items in item.value.fieldpass %}
     {{ items }}
 {% endfor %}
 {% endif %}
-{% if item.fielddrop is defined and item.fielddrop is iterable %}
-[{{ item.plugin }}.fielddrop]
-{% for items in item.fielddrop %}
+{% if item.value.fielddrop is defined and item.value.fielddrop is iterable %}
+[{{ item.key }}.fielddrop]
+{% for items in item.value.fielddrop %}
     {{ items }}
 {% endfor %}
 {% endif %}

@@ -4,13 +4,13 @@
 
   vars:
     telegraf_outputs:
-      - plugin: file
+      file:
         config:
           - files = ["stdout", "/tmp/metrics.out"]
           - data_format = "influx"
 
     telegraf_inputs_extra:
-      - plugin: ping
+      ping:
         config:
           - urls = ["www.google.com"]
           - count = 1

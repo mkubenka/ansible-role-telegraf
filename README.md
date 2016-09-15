@@ -30,31 +30,31 @@ telegraf_agent_hostname: ''
 
 # Output plugins.
 telegraf_outputs:
-  - plugin: influxdb
+  influxdb:
     config:
       - urls = ["http://localhost:8086"]
       - database = "telegraf"
 
 # Default input plugins.
 telegraf_inputs_default:
-  - plugin: cpu
+  cpu:
     config:
       - percpu = true
       - totalcpu = true
       - fielddrop = ["time_*"]
-  - plugin: disk
+  disk:
     config:
       - ignore_fs = ["tmpfs", "devtmpfs"]
-  - plugin: diskio
-  - plugin: kernel
-  - plugin: mem
-  - plugin: processes
-  - plugin: swap
-  - plugin: system
+  diskio:
+  kernel:
+  mem:
+  processes:
+  swap:
+  system:
 
 # Additional input plugins.
 telegraf_inputs_extra: 
-  - plugin: ping
+  ping:
     config:
       - urls = ["www.google.com"]
       - count = 1
