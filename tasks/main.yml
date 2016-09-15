@@ -1,0 +1,47 @@
+---
+
+- name: add the GPG key
+  rpm_key: key=https://repos.influxdata.com/influxdb.key state=present
+
+- name: add yum repo
+  yum_repository:
+    name=influxdb
+    description="InfluxDB Repository"
+    baseurl=https://repos.influxdata.com/centos/\$releasever/\$basearch/stable
+    gpgcheck=yes
+    enabled=yes
+    state=present
+  when: ansible_distribution == 'CentOS'
+
+- name: add yum repo
+  yum_repository:
+    name=influxdb
+    description="InfluxDB Repository"
+    baseurl=https://repos.influxdata.com/centos/6/\$basearch/stable
+    gpgcheck=yes
+    enabled=yes
+    state=present
+  when: ansible_distribution == 'Amazon'
+
+- name: install telegraf packages
+  yum: pkg={{ item }} state=present
+  with_items:
+    - telegraf
+
+- name: copy telegraf configuration
+  template:
+    src=telegraf.conf.j2
+    dest=/etc/telegraf/telegraf.conf
+    backup=yes
+  notify: validate and restart telegraf
+
+- name: copy additional inputs configuration
+  template:
+    src=telegraf.d/extra_input.conf.j2
+    dest=/etc/telegraf/telegraf.d/{{ item.plugin }}.conf
+    backup=yes
+  with_items: "{{ telegraf_inputs_extra }}"
+  notify: validate and restart telegraf
+
+- name: start and enable the telegraf
+  service: name=telegraf state=started enabled=true

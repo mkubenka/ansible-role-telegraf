@@ -1,0 +1,22 @@
+---
+
+galaxy_info:
+  author: Michal Kubenka
+  description: Telegraf is an agent for collecting metrics.
+  company: SAGES, s.r.o.
+  license: BSD
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Amazon
+      versions:
+        - all
+  galaxy_tags:
+    - influxdb
+    - monitoring
+    - telegraf
+
+dependencies: []

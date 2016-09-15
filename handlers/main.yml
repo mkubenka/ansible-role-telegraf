@@ -1,0 +1,14 @@
+---
+
+- name: restart telegraf
+  service: name=telegraf state=restarted
+
+# TODO: Maybe it would be better test all configs:
+# telegraf -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d -test
+# But -test is not true check syntax command.
+- name: validate telegraf
+  command: telegraf -config /etc/telegraf/telegraf.conf -test > /dev/null
+
+- name: validate and restart telegraf
+  command: telegraf -config /etc/telegraf/telegraf.conf -test > /dev/null
+  notify: restart telegraf

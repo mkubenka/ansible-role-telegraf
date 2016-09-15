@@ -1,0 +1,33 @@
+---
+
+- hosts: all
+
+  vars:
+    telegraf_outputs:
+      - plugin: file
+        config:
+          - files = ["stdout", "/tmp/metrics.out"]
+          - data_format = "influx"
+
+    telegraf_inputs_extra:
+      - plugin: ping
+        config:
+          - urls = ["www.google.com"]
+          - count = 1
+
+  pre_tasks:
+    - name: do not requires a TTY when using sudo
+      copy:
+        content="Defaults !requiretty\n"
+        dest="/etc/sudoers.d/cloud-init-requiretty"
+        mode=0400
+        validate="visudo -cf %s"
+
+    - name: remove SSH user from all groups
+      user:
+        name="{{ ansible_env.SUDO_USER }}"
+        groups=""
+
+  roles:
+    - role: telegraf
+

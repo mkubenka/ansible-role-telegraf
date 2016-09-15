@@ -1,0 +1,32 @@
+---
+
+telegraf_tags: {}
+
+telegraf_agent_interval: '10s'
+telegraf_agent_flush_interval: '10s'
+
+telegraf_agent_hostname: ''
+
+telegraf_outputs:
+  - plugin: influxdb
+    config:
+      - urls = ["http://localhost:8086"]
+      - database = "telegraf"
+
+telegraf_inputs_default:
+  - plugin: cpu
+    config:
+      - percpu = true
+      - totalcpu = true
+      - fielddrop = ["time_*"]
+  - plugin: disk
+    config:
+      - ignore_fs = ["tmpfs", "devtmpfs"]
+  - plugin: diskio
+  - plugin: kernel
+  - plugin: mem
+  - plugin: processes
+  - plugin: swap
+  - plugin: system
+
+telegraf_inputs_extra: []
